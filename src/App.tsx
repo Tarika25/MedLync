@@ -1,0 +1,54 @@
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import PatientDashboard from "./pages/PatientDashboard";
+import PharmacyDashboard from "./pages/PharmacyDashboard";
+import NotFound from "./pages/NotFound";
+
+const queryClient = new QueryClient();
+
+function ProtectedRoute({ children, role }: { children: React.ReactNode; role: string }) {
+  const { user, isLoading } = useAuth();
+  if (isLoading) return null;
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role !== role) return <Navigate to={`/dashboard/${user.role}`} replace />;
+  return <>{children}</>;
+}
+
+function AuthRedirect({ children }: { children: React.ReactNode }) {
+  const { user, isLoading } = useAuth();
+  if (isLoading) return null;
+  if (user) return <Navigate to={`/dashboard/${user.role}`} replace />;
+  return <>{children}</>;
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<AuthRedirect><Landing /></AuthRedirect>} />
+            <Route path="/login" element={<AuthRedirect><Login /></AuthRedirect>} />
+            <Route path="/signup" element={<AuthRedirect><Signup /></AuthRedirect>} />
+            <Route path="/dashboard/doctor" element={<ProtectedRoute role="doctor"><DoctorDashboard /></ProtectedRoute>} />
+            <Route path="/dashboard/patient" element={<ProtectedRoute role="patient"><PatientDashboard /></ProtectedRoute>} />
+            <Route path="/dashboard/pharmacy" element={<ProtectedRoute role="pharmacy"><PharmacyDashboard /></ProtectedRoute>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default App;

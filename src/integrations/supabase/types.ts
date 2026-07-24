@@ -1,5 +1,4 @@
-// Supabase types replaced with MedLync PostgreSQL schema types
-// All types are inferred at runtime from the backend API responses
+// MedLync PostgreSQL schema types
 
 export type UserRole = "doctor" | "patient" | "pharmacy";
 

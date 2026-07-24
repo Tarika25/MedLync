@@ -111,6 +111,8 @@ CREATE INDEX IF NOT EXISTS idx_prescriptions_doctor_id ON prescriptions(doctor_i
 CREATE INDEX IF NOT EXISTS idx_prescriptions_code ON prescriptions(prescription_code);
 CREATE INDEX IF NOT EXISTS idx_prescriptions_status ON prescriptions(status);
 CREATE INDEX IF NOT EXISTS idx_medicines_prescription_id ON medicines(prescription_id);
+Remove-Item -Recurse -Force dist
+
 CREATE INDEX IF NOT EXISTS idx_transactions_pharmacy_id ON transactions(pharmacy_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_prescription_id ON transactions(prescription_id);
 CREATE INDEX IF NOT EXISTS idx_hospital_doctors_hospital_user_id ON hospital_doctors(hospital_user_id);

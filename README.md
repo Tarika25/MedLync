@@ -4,6 +4,13 @@ A full-stack prescription management system for Doctors, Patients, and Pharmacie
 
 ---
 
+## Live Demo
+
+- **Frontend:** https://medlync-frontend.onrender.com
+- **Backend:** https://medlync-server.onrender.com
+
+---
+
 ## Features
 
 - 👨‍⚕️ **Doctor** — Create and manage prescriptions, add hospital doctors

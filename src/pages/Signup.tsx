@@ -139,7 +139,7 @@ export default function SignupPage() {
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
                 <div className="flex gap-2">
-                  <Input id="phone" type="tel" value={phone} onChange={(e) => { setPhone(e.target.value); setPhoneVerified(false); setOtpStep(false); }} placeholder="+1 234 567 890" required />
+                  <Input id="phone" type="tel" value={phone} onChange={(e) => { setPhone(e.target.value); setPhoneVerified(false); setOtpStep(false); }} placeholder="+91 98765 43210" required />
                   <Button type="button" variant="outline" onClick={handleSendOTP} disabled={loading || phoneVerified}>
                     {phoneVerified ? "Verified ✓" : "Send OTP"}
                   </Button>
